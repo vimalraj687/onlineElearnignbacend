@@ -13,7 +13,21 @@ const app = express();
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(cors({ origin: "https://online-elearnignfrontend.vercel.app/" }));
+
+// app.use(cors({ origin: 
+// "https:
+// //online-elearnignfrontend.vercel.app/" }));
+app.use(cors({
+  origin: "https://online-elearnignfrontend.vercel.app", // Remove trailing slash
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true, // Allow cookies if needed
+}));
+app.use(cors({ origin: "*" }));
+
+// Your routes
+app.get("/", (req, res) => {
+    res.send("CORS fixed!");
+});
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
